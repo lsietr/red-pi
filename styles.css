@@ -108,7 +108,7 @@ a {
 .math-field {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   overflow: hidden;
   pointer-events: none;
 }
@@ -139,6 +139,35 @@ a {
   opacity: 0.72;
   transform: translate3d(0, 0, 0);
   animation: field-pulse 12s ease-in-out infinite alternate;
+}
+
+.motion-line {
+  position: absolute;
+  left: -28%;
+  width: 72%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(210, 10, 30, 0.72), transparent);
+  border-radius: 999px;
+  box-shadow: 0 0 22px rgba(210, 10, 30, 0.22);
+  transform: rotate(-16deg);
+  animation: line-sweep 7s ease-in-out infinite;
+}
+
+.line-a {
+  top: 22%;
+}
+
+.line-b {
+  top: 48%;
+  height: 2px;
+  opacity: 0.72;
+  animation-delay: -2.4s;
+}
+
+.line-c {
+  top: 72%;
+  opacity: 0.58;
+  animation-delay: -4.7s;
 }
 
 .math-symbol {
@@ -190,6 +219,7 @@ a {
 
 .hero-copy {
   position: relative;
+  z-index: 1;
   max-width: 680px;
 }
 
@@ -280,6 +310,7 @@ h3 {
 
 .hero-visual {
   position: relative;
+  z-index: 1;
   align-self: stretch;
   min-height: 430px;
 }
@@ -324,10 +355,31 @@ h3 {
   }
 }
 
+@keyframes line-sweep {
+  0% {
+    opacity: 0;
+    transform: translate3d(-12%, 28px, 0) rotate(-16deg);
+  }
+
+  18% {
+    opacity: 0.9;
+  }
+
+  72% {
+    opacity: 0.78;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(185%, -34px, 0) rotate(-16deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .math-field::before,
   .math-field::after,
-  .math-symbol {
+  .math-symbol,
+  .motion-line {
     animation: none;
   }
 }
