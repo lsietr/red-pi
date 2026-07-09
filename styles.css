@@ -94,6 +94,8 @@ a {
 }
 
 .hero {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
   align-items: center;
@@ -103,7 +105,91 @@ a {
   overflow: hidden;
 }
 
+.math-field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.math-field::before,
+.math-field::after {
+  position: absolute;
+  inset: -18%;
+  content: "";
+}
+
+.math-field::before {
+  background:
+    linear-gradient(105deg, transparent 0 47%, rgba(210, 10, 30, 0.1) 48%, transparent 50%),
+    linear-gradient(15deg, transparent 0 52%, rgba(8, 8, 8, 0.06) 53%, transparent 55%),
+    linear-gradient(rgba(8, 8, 8, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(8, 8, 8, 0.035) 1px, transparent 1px);
+  background-size: 520px 520px, 680px 680px, 44px 44px, 44px 44px;
+  transform: rotate(-7deg) translate3d(0, 0, 0);
+  animation: field-drift 24s linear infinite;
+}
+
+.math-field::after {
+  background:
+    radial-gradient(circle at 18% 44%, rgba(210, 10, 30, 0.16), transparent 22%),
+    radial-gradient(circle at 78% 20%, rgba(8, 8, 8, 0.08), transparent 25%),
+    linear-gradient(120deg, transparent 10%, rgba(210, 10, 30, 0.08) 11%, transparent 12% 68%, rgba(8, 8, 8, 0.05) 69%, transparent 70%);
+  opacity: 0.72;
+  transform: translate3d(0, 0, 0);
+  animation: field-pulse 12s ease-in-out infinite alternate;
+}
+
+.math-symbol {
+  position: absolute;
+  color: rgba(8, 8, 8, 0.18);
+  font-family: "Space Grotesk", Inter, sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  transform: rotate(-12deg);
+  animation: symbol-float 16s ease-in-out infinite alternate;
+}
+
+.symbol-a {
+  top: 18%;
+  left: 6%;
+  font-size: clamp(1.2rem, 2.4vw, 2.2rem);
+}
+
+.symbol-b {
+  right: 46%;
+  bottom: 14%;
+  color: rgba(210, 10, 30, 0.22);
+  font-size: clamp(1.15rem, 2vw, 1.8rem);
+  animation-delay: -5s;
+}
+
+.symbol-c {
+  top: 28%;
+  right: 10%;
+  font-size: clamp(1.1rem, 1.8vw, 1.65rem);
+  animation-delay: -9s;
+}
+
+.symbol-d {
+  bottom: 24%;
+  left: 34%;
+  color: rgba(210, 10, 30, 0.18);
+  font-size: clamp(1rem, 1.7vw, 1.5rem);
+  animation-delay: -2s;
+}
+
+.symbol-e {
+  top: 68%;
+  right: 18%;
+  font-size: clamp(1rem, 1.6vw, 1.45rem);
+  animation-delay: -12s;
+}
+
 .hero-copy {
+  position: relative;
   max-width: 680px;
 }
 
@@ -204,6 +290,46 @@ h3 {
   object-fit: cover;
   object-position: center right;
   box-shadow: var(--shadow);
+}
+
+@keyframes field-drift {
+  from {
+    background-position: 0 0, 0 0, 0 0, 0 0;
+  }
+
+  to {
+    background-position: 520px -240px, -340px 220px, 88px 44px, 88px 44px;
+  }
+}
+
+@keyframes field-pulse {
+  from {
+    opacity: 0.42;
+    transform: scale(1) translate3d(-1%, 0, 0);
+  }
+
+  to {
+    opacity: 0.76;
+    transform: scale(1.06) translate3d(1%, -1%, 0);
+  }
+}
+
+@keyframes symbol-float {
+  from {
+    transform: translate3d(-12px, 8px, 0) rotate(-12deg);
+  }
+
+  to {
+    transform: translate3d(18px, -14px, 0) rotate(-8deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .math-field::before,
+  .math-field::after,
+  .math-symbol {
+    animation: none;
+  }
 }
 
 .stats {
